@@ -8,7 +8,7 @@ require "tmpdir"
 
 desc "Download etcd for it can be used in rspec"
 task :"download-etcd" do
-  tmpdir = Dir.mktmpdir
+  tmpdir = ENV['ETCD_DIR'] || Dir.mktmpdir
   system("wget", ETCD_URL, "-O", "#{tmpdir}/etcd.tar.gz")   || exit(1)
   system(*%W{tar -C #{tmpdir} -zxvf #{tmpdir}/etcd.tar.gz}) || exit(1)
 
